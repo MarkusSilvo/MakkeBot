@@ -3,6 +3,8 @@ var credentials = require('./credentials');
 // console.log(credentials.clientLogin);
 
 const Discord = require('discord.js')
+
+// Create an instance of a Discord client
 const client = new Discord.Client()
 
 // Credentials for login
@@ -53,18 +55,7 @@ client.on('message', (receivedMessage) => {
         receivedMessage.channel.send("Message received from " +
             receivedMessage.author.toString() + ": " + receivedMessage.content)
     }
-    // If the message is "ping"
-    if (message.content === 'ping') {
-      // Send "pong" to the same channel
-      message.channel.send('pong');
-    }
-    // If the message is "what is my avatar"
-    if (message.content === 'what is my avatar') {
-      // Send the user's avatar URL
-      message.reply(message.author.avatarURL);
-    }
-
-});
+  });
 
 // Multiplyer etc...
 function processCommand(receivedMessage) {
