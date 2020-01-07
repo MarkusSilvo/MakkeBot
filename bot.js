@@ -4,10 +4,12 @@ var credentials = require('./credentials');
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
+// Secret stuff
+client.login(credentials.clientLogin);
+
 // When turned on and ready
 client.on('ready', () => {
-    client.login(credentials.clientLogin);
-    console.log('I am ready!');
+    console.log('I am ready to party!');
 
     // Set bot status to: "Playing with JavaScript"
     // client.user.setActivity("with JavaScript")
@@ -19,7 +21,7 @@ client.on('ready', () => {
 
     // The generall channel id for my server is: 664077701140709440
     var generalChannel = client.channels.get("664077701140709440") // Replace with known channel ID
-    generalChannel.send("I'm back online! :)")  
+    generalChannel.send("I'm online! :)")  
 })
 
 // On message
