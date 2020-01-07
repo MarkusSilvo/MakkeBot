@@ -6,8 +6,8 @@ const client = new Discord.Client()
 
 // When turned on and ready
 client.on('ready', () => {
-    
     client.login(credentials.clientLogin);
+    console.log('I am ready!');
 
     // Set bot status to: "Playing with JavaScript"
     // client.user.setActivity("with JavaScript")
