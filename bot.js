@@ -1,10 +1,11 @@
+// secret stuff
 var credentials = require('./credentials');
 // console.log(credentials.clientLogin);
 
 const Discord = require('discord.js')
 const client = new Discord.Client()
 
-// Secret stuff
+// Credentials for login
 client.login(credentials.clientLogin);
 
 // When turned on and ready
