@@ -5,6 +5,9 @@ var credentials = require('./credentials');
 // Get Discord module
 const Discord = require('discord.js')
 
+// Get youtube dl for future
+// const ytdl = require('ytdl-core');
+
 // Create an instance of a Discord client
 const client = new Discord.Client()
 
