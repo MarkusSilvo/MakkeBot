@@ -1,7 +1,8 @@
-// secret stuff
+// secret stuff etc credentials
 var credentials = require('./credentials');
 // console.log(credentials.clientLogin);
 
+// Get Discord module
 const Discord = require('discord.js')
 
 // Create an instance of a Discord client
@@ -37,7 +38,7 @@ client.on('guildMemberAdd', member => {
     channel.send(`Welcome to the server, ${member}`);
   });
 
-// On message
+// When receiving message
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
