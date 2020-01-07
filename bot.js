@@ -116,7 +116,7 @@ client.on('message', message => {
             var voiceChannel = message.member.voiceChannel;
             voiceChannel.join().then(connection => {
               console.log(`Playing file ${file}.mp3`);
-              const dispatcher = connection.play("https://files.markus.ovh/dl/wood-please.mp3")
+              const dispatcher = connection.playArbitraryInput("https://files.markus.ovh/dl/wood-please.mp3")
               dispatcher.on("end", end => {
                 voiceChannel.leave();
               });

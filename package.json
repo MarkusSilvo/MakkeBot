@@ -1,0 +1,25 @@
+{
+  "name": "makkebot",
+  "version": "1.0.0",
+  "description": "MakkeBot Made for me :)",
+  "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "ffmpeg": "^0.0.4",
+    "opusscript": "^0.0.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarkusSilvo/MakkeBot.git"
+  },
+  "author": "Markus Silvo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarkusSilvo/MakkeBot/issues"
+  },
+  "homepage": "https://github.com/MarkusSilvo/MakkeBot#readme"
+}
