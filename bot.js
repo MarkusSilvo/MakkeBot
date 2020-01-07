@@ -1,4 +1,3 @@
-var credentials = require('./credentials');
 console.log(credentials.clientLogin);
 
 const Discord = require('discord.js')
@@ -6,6 +5,8 @@ const client = new Discord.Client()
 
 // When turned on and ready
 client.on('ready', () => {
+
+    var credentials = require('./credentials');
     
     // Set bot status to: "Playing with JavaScript"
     // client.user.setActivity("with JavaScript")
