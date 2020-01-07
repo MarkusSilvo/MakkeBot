@@ -113,15 +113,17 @@ client.on('message', message => {
           .catch(console.log);
       } else {
         message.reply('You need to join a voice channel first!');
+        
         var voiceChannel = message.member.voiceChannel;
         voiceChannel.join().then(connection => {
           console.log(`Playing file ${file}.mp3`);
-          const dispatcher = connection.playArbitraryInput("http://185.52.127.131/fi/35059/mp3_128.mp3")
+          const dispatcher = connection.play("http://185.52.127.131/fi/35059/mp3_128.mp3")
           dispatcher.on("end", end => {
             voiceChannel.leave();
           });
         }).catch(err => console.log(err));
         isReady = true;
+        
       }
     }
   });
