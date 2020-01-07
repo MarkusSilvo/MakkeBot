@@ -100,8 +100,9 @@ function multiplyCommand(arguments, receivedMessage) {
     receivedMessage.channel.send("The product of " + arguments + " multiplied together is: " + product.toString())
 }
 
-// Voice stuff etc
+// Internet Radio "NRJ" with command /nrj - can be changed to any audio file from the internet.
 client.on('message', message => {
+<<<<<<< Updated upstream
     // Voice only works in guilds, if the message does not come from a guild,
     // we ignore it
     if (!message.guild) return;
@@ -130,3 +131,42 @@ client.on('message', message => {
       }
     }
   });
+=======
+	// Voice only works in guilds, if the message does not come from a guild,
+	// we ignore it
+	if (!message.guild) return;
+
+	// If message is '/join'
+	if (message.content === '/nrj') {
+
+		// Get user voice channel
+		var voiceChannel = message.member.voiceChannel;
+
+		// If user is on the voice channel.
+		if (voiceChannel) {
+
+			// Join the voice channel
+			voiceChannel.join().then(connection => {
+
+				message.reply('I have successfully connected to the voice channel!');
+				
+				// Play sound from url.
+				const dispatcher = connection.playArbitraryInput('http://185.52.127.162/fi/35001/mp3_128.mp3');
+				
+				// When sound playing finished.
+				dispatcher.on('end', end => {
+
+					// Leave the channel.
+					voiceChannel.leave();
+				});
+
+			// Failed to join voice channel, print error to the console.
+			}).catch(err => console.log(err));
+		} else {
+
+			// User was not in the voice channel.
+			message.reply('You need to join a voice channel first!');
+		}
+	}
+});
+>>>>>>> Stashed changes
