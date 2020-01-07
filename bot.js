@@ -100,7 +100,7 @@ function multiplyCommand(arguments, receivedMessage) {
 	receivedMessage.channel.send('The product of ' + arguments + ' multiplied together is: ' + product.toString());
 }
 
-// Voice stuff etc
+// Internet radio "NRJ" - can be changed.
 client.on('message', message => {
 	// Voice only works in guilds, if the message does not come from a guild,
 	// we ignore it
