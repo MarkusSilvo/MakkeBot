@@ -12,7 +12,7 @@ client.login(credentials.clientLogin);
 
 // When turned on and ready
 client.on('ready', () => {
-    console.log('I am ready to party!');
+    console.log('I am ready to work!');
 
     // Set bot status to: "Playing with JavaScript"
     // client.user.setActivity("with JavaScript")
