@@ -21,33 +21,52 @@ client.on('ready', () => {
     client.user.setActivity("Twitch", {type: "WATCHING"})
 
     // The generall channel id for my server is: 664077701140709440
-    var generalChannel = client.channels.get("664077701140709440") // Replace with known channel ID
-    generalChannel.send("I'm online! :)")  
+    // var generalChannel = client.channels.get("664077701140709440") // Replace with known channel ID
+    // generalChannel.send("I'm online! :)")  
 })
+
+// Create an event listener for new guild members
+client.on('guildMemberAdd', member => {
+    // Send the message to a designated channel on a server:
+    const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+    // Do nothing if the channel wasn't found on this server
+    if (!channel) return;
+    // Send the message, mentioning the member
+    channel.send(`Welcome to the server, ${member}`);
+  });
 
 // On message
 client.on('message', (receivedMessage) => {
     if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
         return
     }
-    
     if (receivedMessage.content.startsWith("!")) {
         processCommand(receivedMessage)
     }
-
     // Prevent bot from responding to its own messages
     if (receivedMessage.author == client.user) {
         return
     }
-    
     // Check if the bot's user was tagged in the message
     if (receivedMessage.content.includes(client.user.toString())) {
         // Send acknowledgement message
         receivedMessage.channel.send("Message received from " +
             receivedMessage.author.toString() + ": " + receivedMessage.content)
     }
-})
+    // If the message is "ping"
+    if (message.content === 'ping') {
+      // Send "pong" to the same channel
+      message.channel.send('pong');
+    }
+    // If the message is "what is my avatar"
+    if (message.content === 'what is my avatar') {
+      // Send the user's avatar URL
+      message.reply(message.author.avatarURL);
+    }
 
+});
+
+// Multiplyer etc...
 function processCommand(receivedMessage) {
     let fullCommand = receivedMessage.content.substr(1) // Remove the leading exclamation mark
     let splitCommand = fullCommand.split(" ") // Split the message up in to pieces for each space
