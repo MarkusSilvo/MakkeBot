@@ -121,7 +121,7 @@ client.on('message', message => {
 				message.reply('I have successfully connected to the voice channel!');
 				
 				// Play sound from url.
-				const dispatcher = connection.playArbitraryInput('https://files.markus.ovh/dl/wood-please.mp3');
+				const dispatcher = connection.playArbitraryInput('http://185.52.127.162/fi/35001/mp3_128.mp3');
 				
 				// When sound playing finished.
 				dispatcher.on('end', end => {
