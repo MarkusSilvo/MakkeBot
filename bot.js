@@ -1,5 +1,5 @@
 // secret stuff etc credentials
-var credentials = require('./credentials');
+const credentials = require('./credentials');
 
 // Get Discord module
 const Discord = require('discord.js');
