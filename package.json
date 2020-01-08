@@ -5,8 +5,9 @@
   "main": "bot.js",
   "dependencies": {
     "discord.js": "^11.5.1",
-    "ffmpeg": "^0.0.4",
-    "opusscript": "^0.0.7"
+    "ffmpeg": "0.0.4",
+    "opusscript": "0.0.7",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {

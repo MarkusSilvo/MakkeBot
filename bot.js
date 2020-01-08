@@ -4,11 +4,14 @@ const credentials = require('./credentials');
 // Get Discord module
 const Discord = require('discord.js');
 
+// 1u.fi API
+const _1uApi = require('./1uapi');
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
 // Credentials for login
-client.login(credentials.clientLogin);
+client.login(credentials.discordToken);
 
 // When turned on and ready
 client.on('ready', () => {
@@ -25,7 +28,7 @@ client.on('ready', () => {
 	// The generall channel id for my server is: 664077701140709440
 	// var generalChannel = client.channels.get("664077701140709440") // Replace with known channel ID
 	// generalChannel.send("I'm online! :)")  
-})
+});
 
 // Create an event listener for new guild members
 client.on('guildMemberAdd', member => {
@@ -72,9 +75,34 @@ function processCommand(receivedMessage) {
 		helpCommand(arguments, receivedMessage);
 	} else if (primaryCommand == 'multiply') {
 		multiplyCommand(arguments, receivedMessage);
+	} else if (primaryCommand == 'short') {
+		shortLinkCommand(arguments, receivedMessage);
 	} else {
-		receivedMessage.channel.send('I don\'t understand the command. Try `!help` or `!multiply`');
+		receivedMessage.channel.send('I don\'t understand the command. Try `!help`, `!multiply` or `!short`');
 	}
+}
+
+function shortLinkCommand(arguments, receivedMessage) {
+
+	// If there is less than 1 argument given.
+	if (arguments.length < 1) {
+		receivedMessage.channel.send('Error: Give url to shorten!');
+		return;
+	}
+
+	// First argument (arguments[0]) is url to shorten.
+	// !short <url_here> <-- is the first in the argument list.
+	// createShortUrl returns callback with JSON response from API.
+	_1uApi.createShortUrl(arguments[0], (response) => {
+
+		// API told us that there was an error.
+		if (response.error === 1) {
+			receivedMessage.channel.send(`API Error: ${response.msg}`);
+		} else {
+			// Everything went good, send shortened url.
+			receivedMessage.channel.send(`Here is your url shortened! ${response.short}`);
+		}
+	});
 }
 
 function helpCommand(arguments, receivedMessage) {
