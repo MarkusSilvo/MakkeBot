@@ -1,0 +1,23 @@
+{
+	// Tab size
+	"editor.tabSize": 4,
+
+	// Don't use spaces
+	"editor.insertSpaces": false,
+
+	// Trim all useless whitespaces from files.
+	"editor.trimAutoWhitespace": true,
+
+	// Use tab stops
+	"editor.useTabStops": true,
+
+	// Files and folders to hide from vscode explorer.
+	"files.exclude":
+	{
+		"**/node_modules/": true,
+		"**/package-lock.json": true,
+		"**/.gitattributes": true,
+		"**/.gitignore": true,
+		"**/LICENSE": true
+	}
+}
