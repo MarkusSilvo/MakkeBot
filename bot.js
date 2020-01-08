@@ -100,14 +100,14 @@ function multiplyCommand(arguments, receivedMessage) {
 	receivedMessage.channel.send('The product of ' + arguments + ' multiplied together is: ' + product.toString());
 }
 
-// Internet radio "NRJ" - can be changed.
+// Internet radio "NRJ" - will be changed in future releases to support multiple radio's
 client.on('message', message => {
 	// Voice only works in guilds, if the message does not come from a guild,
 	// we ignore it
 	if (!message.guild) return;
 
 	// If message is '/join'
-	if (message.content === '/join') {
+	if (message.content === '/nrj') {
 
 		// Get user voice channel
 		var voiceChannel = message.member.voiceChannel;
