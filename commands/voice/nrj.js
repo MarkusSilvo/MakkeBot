@@ -7,7 +7,7 @@ const info = {
 };
 
 /**
- * Execute command with given arguments.
+ * Play NRJ internet radio in voice channel.
  * 
  * @param {Discord.Client} client Bot client
  * @param {string[]} arguments Command arguments

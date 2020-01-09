@@ -7,7 +7,7 @@ const info = {
 };
 
 /**
- * Execute command with given arguments.
+ * Gives user manliness percentage.
  * 
  * @param {Discord.Client} client Bot client
  * @param {string[]} arguments Command arguments
