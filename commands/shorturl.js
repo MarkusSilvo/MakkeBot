@@ -18,7 +18,7 @@ const info = {
 const execute = (client, arguments, message) => {
 	// If there is less than 1 argument given.
 	if (arguments.length < 1) {
-		message.channel.send('Error: Give url to shorten!');
+		message.reply('Error: Give url to shorten!');
 		return;
 	}
 
@@ -29,10 +29,10 @@ const execute = (client, arguments, message) => {
 
 		// API told us that there was an error.
 		if (response.error) {
-			message.channel.send(`API Error: ${response.msg}`);
+			message.reply(`API Error: ${response.msg}`);
 		} else {
 			// Everything went good, send shortened url.
-			message.channel.send(`Here is your url shortened! ${response.short}`);
+			message.reply(`Here is your url shortened! ${response.short}`);
 		}
 	});
 };

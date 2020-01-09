@@ -7,11 +7,6 @@ const info = {
 };
 
 /**
- * Command description.
- */
-const desc = 'placeholder';
-
-/**
  * Execute command with given arguments.
  * 
  * @param {Discord.Client} client Bot client

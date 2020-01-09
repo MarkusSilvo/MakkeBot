@@ -1,30 +1,24 @@
-const glob = require('glob');
-const path = require('path');
-
 /**
  * Command information.
  */
 const info = {
-	name: 'help',
-	desc: 'Lists all commands.'
+	name: 'manly',
+	desc: 'Gives manly percentage'
 };
 
 /**
- * Sends all commands to the user.
+ * Execute command with given arguments.
  * 
  * @param {Discord.Client} client Bot client
  * @param {string[]} arguments Command arguments
  * @param {Discord.Message} message Message that contained the command.
  */
 const execute = (client, arguments, message) => {
-	let msg = '';
-	glob.sync('./commands/**/*.js').forEach((file) => {
-		let cmd = require(path.resolve(file));
-		msg += `!${cmd.info.name} -- ${cmd.info.desc}\n`;
-	});
 
-	message.reply(msg);
+	// Generate random number between 1-100
+	let manlyPercentage = Math.floor(Math.random() * 101);
+	let gachiEmote = client.emojis.find(emoji => emoji.name === "gachiGASM");
+	message.reply(`You're ${manlyPercentage}% manly ${gachiEmote}`);
 };
-
 
 module.exports = { info: info, execute: execute };

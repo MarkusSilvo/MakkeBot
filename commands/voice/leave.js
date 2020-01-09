@@ -17,7 +17,7 @@ const execute = (client, arguments, message) => {
 
 	// Bot is not in the voice channel.
 	if (client.voiceConnections.size == 0) {
-		message.channel.send('I\'m not connected to any voice channel.');
+		message.reply('I\'m not connected to any voice channel.');
 		return;
 	}
 
