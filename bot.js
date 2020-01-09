@@ -10,15 +10,23 @@ const _1uApi = require('./1uapi');
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
+// Require all available commands
+const glob = require('glob')
+const path = require('path');
+
+const commands = {};
+
+glob.sync('./commands/**/*.js').forEach((file) => {
+	let cmd = require(path.resolve(file));
+	commands[cmd.name] = cmd;
+});
+
 // Credentials for login
 client.login(credentials.discordToken);
 
 // When turned on and ready
 client.on('ready', () => {
 	console.log('I am ready to work!');
-
-	// Set bot status to: "Playing with JavaScript"
-	// client.user.setActivity("with JavaScript")
 
 	// Alternatively, you can set the activity to any of the following:
 	// PLAYING, STREAMING, LISTENING, WATCHING
@@ -41,91 +49,36 @@ client.on('guildMemberAdd', member => {
 });
 
 // When receiving message
-client.on('message', (receivedMessage) => {
-	if (receivedMessage.author == client.user) { // Prevent bot from responding to its own messages
+client.on('message', (message) => {
+	// Prevent bot from responding to its own messages
+	if (message.author == client.user) {
 		return;
 	}
 
-	if (receivedMessage.content.startsWith('!')) {
-		processCommand(receivedMessage);
-	}
-	// Prevent bot from responding to its own messages
-	if (receivedMessage.author == client.user) {
-		return;
-	}
-	// Check if the bot's user was tagged in the message
-	if (receivedMessage.content.includes(client.user.toString())) {
-		// Send acknowledgement message
-		receivedMessage.channel.send('Message received from ' +
-			receivedMessage.author.toString() + ': ' + receivedMessage.content);
+	// Message starts with '!' so it's an command.
+	if (message.content.startsWith('!')) {
+		processCommand(message);
 	}
 });
 
-// Multiplyer etc...
-function processCommand(receivedMessage) {
-	let fullCommand = receivedMessage.content.substr(1); // Remove the leading exclamation mark
-	let splitCommand = fullCommand.split(' '); // Split the message up in to pieces for each space
-	let primaryCommand = splitCommand[0]; // The first word directly after the exclamation is the command
-	let arguments = splitCommand.slice(1); // All other words are arguments/parameters/options for the command
+function processCommand(message) {
+	// Remove first character '!' and split the message up in to pieces by each space
+	let splittedMessage = message.content.substr(1).split(' ');
 
-	console.log('Command received: ' + primaryCommand);
-	console.log('Arguments: ' + arguments); // There may not be any arguments
+	// The first word directly after the exclamation is the command
+	let commandName = splittedMessage[0];
 
-	if (primaryCommand == 'help') {
-		helpCommand(arguments, receivedMessage);
-	} else if (primaryCommand == 'multiply') {
-		multiplyCommand(arguments, receivedMessage);
-	} else if (primaryCommand == 'short') {
-		shortLinkCommand(arguments, receivedMessage);
-	} else {
-		receivedMessage.channel.send('I don\'t understand the command. Try `!help`, `!multiply` or `!short`');
-	}
-}
+	// All other words are arguments for the command
+	let arguments = splittedMessage.slice(1);
 
-function shortLinkCommand(arguments, receivedMessage) {
-
-	// If there is less than 1 argument given.
-	if (arguments.length < 1) {
-		receivedMessage.channel.send('Error: Give url to shorten!');
+	// Commands contains commandName.
+	if (commandName in commands) {
+		// Execute command!
+		commands[commandName].execute(client, arguments, message);
 		return;
 	}
 
-	// First argument (arguments[0]) is url to shorten.
-	// !short <url_here> <-- is the first in the argument list.
-	// createShortUrl returns callback with JSON response from API.
-	_1uApi.createShortUrl(arguments[0], (response) => {
-
-		// API told us that there was an error.
-		if (response.error === 1) {
-			receivedMessage.channel.send(`API Error: ${response.msg}`);
-		} else {
-			// Everything went good, send shortened url.
-			receivedMessage.channel.send(`Here is your url shortened! ${response.short}`);
-		}
-	});
-}
-
-function helpCommand(arguments, receivedMessage) {
-	if (arguments.length > 0) {
-		receivedMessage.channel.send('It looks like you might need help with ' + arguments);
-	} else {
-		receivedMessage.channel.send('I\'m not sure what you need help with. Try `!help [topic]`');
-	}
-}
-
-function multiplyCommand(arguments, receivedMessage) {
-	if (arguments.length < 2) {
-		receivedMessage.channel.send('Not enough values to multiply. Try `!multiply 2 4 10` or `!multiply 5.2 7`');
-		return;
-	}
-
-	let product = 1;
-
-	arguments.forEach((value) => {
-		product = product * parseFloat(value);
-	});
-
-	receivedMessage.channel.send('The product of ' + arguments + ' multiplied together is: ' + product.toString());
+	message.channel.send(`Command: ${commandName} doesn't exist. You can use '!help' to find more about commands!`);
 }
 
 // Internet radio "NRJ" - will be changed in future releases to support multiple radio's
@@ -147,7 +100,6 @@ client.on('message', message => {
 			voiceChannel.join().then(connection => {
 
 				message.reply('I have successfully connected to the voice channel!');
-				
 				// Play sound from url.
 				const dispatcher = connection.playArbitraryInput('http://cdn.nrjaudio.fm/adwz1/fi/35001/mp3_128.mp3');
 				
