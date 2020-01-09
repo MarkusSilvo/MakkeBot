@@ -1,14 +1,12 @@
 const _1uApi = require('../1uapi');
 
 /**
- * Command name.
+ * Command information.
  */
-const name = 'short';
-
-/**
- * Command description.
- */
-const desc = 'Shortens given url.';
+const info = {
+	name: 'short',
+	desc: 'Shortens given url.'
+};
 
 /**
  * Sends given url as shortened to the user.
@@ -39,9 +37,4 @@ const execute = (client, arguments, message) => {
 	});
 };
 
-module.exports = {
-	name: name,
-	desc: desc,
-
-	execute: execute
-};
+module.exports = { info: info, execute: execute };

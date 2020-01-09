@@ -19,7 +19,7 @@ const commands = {};
 // Load all commands from ./commands directory.
 glob.sync('./commands/**/*.js').forEach((file) => {
 	let cmd = require(path.resolve(file));
-	commands[cmd.name] = cmd;
+	commands[cmd.info.name] = cmd;
 });
 
 // Credentials for login

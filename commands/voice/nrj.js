@@ -1,12 +1,10 @@
 /**
- * Command name.
+ * Command information.
  */
-const name = 'nrj';
-
-/**
- * Command description.
- */
-const desc = 'Joins user voice channel and play\'s NRJ internet radio!';
+const info = {
+	name: 'nrj',
+	desc: 'Makes bot play NRJ internet radio.'
+};
 
 /**
  * Execute command with given arguments.
@@ -45,10 +43,4 @@ const execute = (client, arguments, message) => {
 	}
 };
 
-
-module.exports = {
-	name: name,
-	desc: desc,
-
-	execute: execute
-};
+module.exports = { info: info, execute: execute };

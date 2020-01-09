@@ -1,7 +1,10 @@
 /**
- * Command name.
+ * Command information.
  */
-const name = 'placeholder';
+const info = {
+	name: 'placeholder',
+	desc: 'placeholder'
+};
 
 /**
  * Command description.
@@ -17,10 +20,4 @@ const desc = 'placeholder';
  */
 const execute = (client, arguments, message) => {};
 
-
-module.exports = {
-	name: name,
-	desc: desc,
-
-	execute: execute
-};
+module.exports = { info: info, execute: execute };

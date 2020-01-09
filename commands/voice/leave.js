@@ -1,13 +1,10 @@
-const Discord = require('discord.js');
 /**
- * Command name.
+ * Command information.
  */
-const name = 'leave';
-
-/**
- * Command description.
- */
-const desc = 'This is a test command for checking active voice clients.';
+const info = {
+	name: 'leave',
+	desc: 'Makes bot leave voice channel.'
+};
 
 /**
  * Leaves voice channel.
@@ -32,9 +29,4 @@ const execute = (client, arguments, message) => {
 	});
 };
 
-module.exports = {
-	name: name,
-	desc: desc,
-
-	execute: execute
-};
+module.exports = { info: info, execute: execute };

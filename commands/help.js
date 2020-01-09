@@ -2,14 +2,12 @@ const glob = require('glob');
 const path = require('path');
 
 /**
- * Command name.
+ * Command information.
  */
-const name = 'help';
-
-/**
- * Command description.
- */
-const desc = 'Lists all commands!';
+const info = {
+	name: 'help',
+	desc: 'Lists all commands.'
+};
 
 /**
  * Sends all commands to the user.
@@ -22,16 +20,11 @@ const execute = (client, arguments, message) => {
 	let msg = '';
 	glob.sync('./commands/**/*.js').forEach((file) => {
 		let cmd = require(path.resolve(file));
-		msg += `!${cmd.name} -- ${cmd.desc}\n`;
+		msg += `!${cmd.info.name} -- ${cmd.info.desc}\n`;
 	});
 
 	message.channel.send(msg);
 };
 
 
-module.exports = {
-	name: name,
-	desc: desc,
-
-	execute: execute
-};
+module.exports = { info: info, execute: execute };
