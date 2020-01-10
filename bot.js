@@ -40,7 +40,7 @@ client.on('ready', () => {
 });
 
 // Create an event listener for new guild members
-client.on('guildMemberAdd', member => {
+client.on('guildMemberAdd', (member) => {
 	// Send the message to a designated channel on a server:
 	const channel = member.guild.channels.find(ch => ch.name === 'member-log');
 	// Do nothing if the channel wasn't found on this server
@@ -56,9 +56,7 @@ client.on('message', (message) => {
 	if (!message.guild) return;
 
 	// Prevent bot from responding to its own messages.
-	if (message.author == client.user) {
-		return;
-	}
+	if (message.author == client.user) return;
 
 	// Message starts with '!' so it's an command.
 	if (message.content.startsWith('!')) {
@@ -83,5 +81,5 @@ const processCommand = (message) => {
 		return;
 	}
 
-	message.channel.send(`Command: ${commandName} doesn't exist. You can use '!help' to find more about commands!`);
+	message.reply(`Command: ${commandName} doesn't exist. You can use '!help' to find more about commands!`);
 };
