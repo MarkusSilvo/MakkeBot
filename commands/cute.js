@@ -13,14 +13,14 @@ const info = {
  * @param {string[]} arguments Command arguments
  * @param {Discord.Message} message Message that contained the command.
  */
-const execute = (client, arguments, message) => {
+const execute = async (client, arguments, message) => {
 
 	// Generate random number between 1-100
 	let cutenessPercentage = Math.floor(Math.random() * 101);
 	// Get weeb emote DansGame
 	let weebEmote = client.emojis.find(emoji => emoji.name === 'AYAYA');
 
-	message.reply(`You're ${cutenessPercentage}% cute ${weebEmote != null ? weebEmote : ''}`);
+	await message.reply(`You're ${cutenessPercentage}% cute ${weebEmote != null ? weebEmote : ''}`);
 };
 
 module.exports = { info: info, execute: execute };

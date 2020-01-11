@@ -16,14 +16,14 @@ const info = {
  * @param {string[]} arguments Command arguments
  * @param {Discord.Message} message Message that contained the command.
  */
-const execute = (client, arguments, message) => {
+const execute = async (client, arguments, message) => {
 	let msg = '';
 	glob.sync('./commands/**/*.js').forEach((file) => {
 		let cmd = require(path.resolve(file));
 		msg += `!${cmd.info.name} -- ${cmd.info.desc}\n`;
 	});
 
-	message.reply(msg);
+	await message.reply(msg);
 };
 
 

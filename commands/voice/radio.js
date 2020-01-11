@@ -1,4 +1,5 @@
 const radio = require('../../radiostations');
+const Discord = require('discord.js')
 
 /**
  * Command information.
@@ -16,19 +17,19 @@ const info = {
  * @param {string[]} arguments Command arguments
  * @param {Discord.Message} message Message that contained the command.
  */
-const execute = (client, arguments, message) => {
+const execute = async (client, arguments, message) => {
 	// Get user voice channel
 	var voiceChannel = message.member.voiceChannel;
 
 	// If user is not on the voice channel.
 	if (!voiceChannel) {
-		message.reply('You need to join a voice channel first!');
+		await message.reply('You need to join a voice channel first!');
 		return;
 	}
 
 	// There was no radio name given as an argument.
 	if (arguments.length < 1) {
-		message.reply('Was expecting station name as an argument. Try `!radio list` to list all available stations.');
+		await message.reply('Was expecting station name as an argument. Try `!radio list` to list all available stations.');
 		return;
 	}
 
@@ -42,7 +43,7 @@ const execute = (client, arguments, message) => {
 			msg += radio.stations[i].name + '\n';
 		}
 
-		message.reply(msg);
+		await message.reply(msg);
 		return;
 	}
 
@@ -54,24 +55,28 @@ const execute = (client, arguments, message) => {
 	
 	// Radio station doesn't exist on the stations list.
 	if (!station) {
-		message.reply(`Sorry, I didn't find radio station: '${radioName}'`);
+		await message.reply(`Sorry, I didn't find radio station: '${radioName}'`);
 		return;
 	}
 
 	//Join the voice channel
-	voiceChannel.join().then(connection => {
-		message.reply('I have successfully connected to the voice channel!');
+	await voiceChannel.join().then(async connection => {
+		await message.reply('I have successfully connected to the voice channel!');
 		// Play sound from url.
-		const dispatcher = connection.playArbitraryInput(station.url);
-		
+		const dispatcher = await connection.playArbitraryInput(station.url);
+
 		// When sound playing finished.
-		dispatcher.on('end', end => {
+		dispatcher.on('end', async end => {
 
 			// Leave the channel.
-			voiceChannel.leave();
+			await voiceChannel.leave();
 		});
 
-	// Failed to join voice channel, print error to the console.
+		dispatcher.on('error', async err => {
+			await voiceChannel.leave();
+			console.error(err);
+		});
+
 	}).catch(err => console.log(err));
 };
 

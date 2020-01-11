@@ -26,13 +26,13 @@ glob.sync('./commands/**/*.js').forEach((file) => {
 client.login(credentials.discordToken);
 
 // When turned on and ready
-client.on('ready', () => {
+client.on('ready', async () => {
 	console.log('I am ready to work!');
 
 	// Alternatively, you can set the activity to any of the following:
 	// PLAYING, STREAMING, LISTENING, WATCHING
 	// For example:
-	client.user.setActivity('Twitch', {type: 'WATCHING'});
+	await client.user.setActivity('Twitch', {type: 'WATCHING'});
 
 	
 	const devChannels = [
@@ -44,24 +44,24 @@ client.on('ready', () => {
 
 	const pjson = require('./package.json');
 
-	devChannels.forEach((id) => {
+	devChannels.forEach(async (id) => {
 		const channel = client.channels.get(id);
-		if (channel) channel.send(`I'm online! :) Current version: ${pjson.version}`);
+		if (channel) await channel.send(`I'm online! :) Current version: ${pjson.version}`);
 	});
 });
 
 // Create an event listener for new guild members
-client.on('guildMemberAdd', (member) => {
+client.on('guildMemberAdd', async member => {
 	// Send the message to a designated channel on a server:
 	const channel = member.guild.channels.find(ch => ch.name === 'member-log');
 	// Do nothing if the channel wasn't found on this server
 	if (!channel) return;
 	// Send the message, mentioning the member
-	channel.send(`Welcome to the server, ${member}`);
+	await channel.send(`Welcome to the server, ${member}`);
 });
 
 // When receiving message
-client.on('message', (message) => {
+client.on('message', async message => {
 
 	// Only handle messages from guilds.
 	if (!message.guild) return;
@@ -71,11 +71,11 @@ client.on('message', (message) => {
 
 	// Message starts with '!' so it's an command.
 	if (message.content.startsWith('!')) {
-		processCommand(message);
+		await processCommand(message);
 	}
 });
 
-const processCommand = (message) => {
+const processCommand = async (message) => {
 	// Remove first character '!' and split the message up in to pieces by each space
 	let splittedMessage = message.content.substr(1).split(' ');
 
@@ -88,9 +88,9 @@ const processCommand = (message) => {
 	// Commands contains commandName.
 	if (commandName in commands) {
 		// Execute command!
-		commands[commandName].execute(client, arguments, message);
+		await commands[commandName].execute(client, arguments, message);
 		return;
 	}
 
-	message.reply(`Command: ${commandName} doesn't exist. You can use '!help' to find more about commands!`);
+	await message.reply(`Command: ${commandName} doesn't exist. You can use '!help' to find more about commands!`);
 };
