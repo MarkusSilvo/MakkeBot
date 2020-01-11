@@ -63,13 +63,13 @@ def main():
 		return
 
 	# Create new updater instance.
-	updater = Updater(settings)
+	updt = Updater(settings)
 	# Kill already running bot process.
-	updater.kill_bot_process()
+	updt.kill_bot_process()
 	# Start new bot process.
-	updater.start_bot_node_js()
+	updt.start_bot_node_js()
 	# Run updater.
-	run_updater(updater)
+	run_updater(updt)
 
 if __name__ == "__main__":
 	main()
