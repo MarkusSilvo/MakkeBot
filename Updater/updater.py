@@ -10,7 +10,7 @@ from settings import Settings
 
 class Updater:
 
-	def __init__(self, cfg: Settings):
+	def __init__(self, cfg):
 		self.workingDirectory = cfg.dir
 		self.updateZipFile = 'master.zip'
 
