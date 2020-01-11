@@ -34,9 +34,20 @@ client.on('ready', () => {
 	// For example:
 	client.user.setActivity('Twitch', {type: 'WATCHING'});
 
-	// The generall channel id for my server is: 664077701140709440
-	// var generalChannel = client.channels.get("664077701140709440") // Replace with known channel ID
-	// generalChannel.send("I'm online! :)")  
+	
+	const devChannels = [
+		// Jokke's development channel
+		'632975056590602260',
+		// Makke server general channel
+		'664077701140709440'
+	];
+
+	const pjson = require('./package.json');
+
+	devChannels.forEach((id) => {
+		const channel = client.channels.get(id);
+		if (channel) channel.send(`I'm online! :) Current version: ${pjson.version}`);
+	});
 });
 
 // Create an event listener for new guild members
