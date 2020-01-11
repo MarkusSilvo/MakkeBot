@@ -1,5 +1,6 @@
 import os
 import subprocess
+import signal
 import urllib
 import urllib.request
 import zipfile
@@ -129,5 +130,8 @@ class Updater:
 
 	def kill_bot_process(self):
 		for pid in self.get_node_processes():
-			os.kill(pid, -9)
-			Logger().write('Process with ID: ' + str(pid) + ' killed!')
+			try:
+				os.kill(pid, signal.SIGTERM)
+				Logger().write('Process with ID: ' + str(pid) + ' killed!')
+			except OSError:
+				continue
