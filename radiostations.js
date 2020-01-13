@@ -71,7 +71,15 @@ const radios =
 	{ name: 'Radio Vaasa', url: 'http://stream.radiovaasa.fi:8000/radiovaasa.mp3' },
 	{ name: 'Radio Voima', url: 'https://cast2.radiovoima.fi/voima.mp3' },
 	{ name: 'Steel FM', url: 'http://ice6.securenetsystems.net/STEELFM' },
-	{ name: 'Ålands', url: 'https://stream.alandsradio.ax/stream.ogg' }
+	{ name: 'Ålands', url: 'https://stream.alandsradio.ax/stream.ogg' },
+	{ name: 'Suomipop', url: 'https://digitacdn.akamaized.net/hls/live/629243/radiosuomipop/master-128000.m3u8' },
+	{ name: 'Aito Iskelmä', url: 'https://digitacdn.akamaized.net/hls/live/629243/aitoiskelma/master-128000.m3u8' },
+	{ name: 'Groove FM', url: 'https://digitacdn.akamaized.net/hls/live/629243/groove/master-128000.m3u8' },
+	{ name: 'Helmiradio', url: 'https://digitacdn.akamaized.net/hls/live/629243/radiohelmi/master-128000.m3u8' },
+	{ name: 'Hitmix', url: 'https://digitacdn.akamaized.net/hls/live/629243/hitmix/master-128000.m3u8' },
+	{ name: 'Loop', url: 'https://digitacdn.akamaized.net/hls/live/629243/loop/master-128000.m3u8' },
+	{ name: 'Aalto', url: 'https://digitacdn.akamaized.net/hls/live/629243/radioaalto/master-128000.m3u8' },
+	{ name: 'Rock', url: 'https://digitacdn.akamaized.net/hls/live/629243/radiorock/master-128000.m3u8' }
 ];
 
 module.exports.stations = radios;
