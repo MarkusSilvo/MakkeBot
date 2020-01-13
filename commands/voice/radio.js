@@ -1,5 +1,4 @@
-const radio = require('../../radiostations');
-const Discord = require('discord.js')
+const radio = require('../../radiostations.json');
 
 /**
  * Command information.
@@ -14,10 +13,10 @@ const info = {
  * !radio list -- List all available radio channels.
  * 
  * @param {Discord.Client} client Bot client
- * @param {string[]} arguments Command arguments
+ * @param {string[]} args Command args
  * @param {Discord.Message} message Message that contained the command.
  */
-const execute = async (client, arguments, message) => {
+const execute = async (client, args, message) => {
 	// Get user voice channel
 	var voiceChannel = message.member.voiceChannel;
 
@@ -28,13 +27,13 @@ const execute = async (client, arguments, message) => {
 	}
 
 	// There was no radio name given as an argument.
-	if (arguments.length < 1) {
+	if (args.length < 1) {
 		await message.reply('Was expecting station name as an argument. Try `!radio list` to list all available stations.');
 		return;
 	}
 
 	// There was 1 argument and it was 'list'
-	if (arguments.length == 1 && (arguments[0] == 'list')) {
+	if (args.length == 1 && (args[0] == 'list')) {
 		let msg = 'I currently know these radio stations:\n';
 
 		// Go through each object in stations array
@@ -47,8 +46,8 @@ const execute = async (client, arguments, message) => {
 		return;
 	}
 
-	// Join all arguments together separeted by spaces to get radio station name.
-	const radioName = arguments.join(' ');
+	// Join all args together separeted by spaces to get radio station name.
+	const radioName = args.join(' ');
 
 	// Try find radio by it's name from the stations array.
 	const station = radio.stations.find(x => x.name.toLowerCase() == radioName.toLowerCase());
@@ -63,17 +62,14 @@ const execute = async (client, arguments, message) => {
 	await voiceChannel.join().then(async connection => {
 		await message.reply('I have successfully connected to the voice channel!');
 		// Play sound from url.
-		const dispatcher = await connection.playArbitraryInput(station.url);
+		const dispatcher = connection.playArbitraryInput(station.url);
 
-		// When sound playing finished.
-		dispatcher.on('end', async end => {
-
-			// Leave the channel.
-			await voiceChannel.leave();
+		dispatcher.on('end', end => {
+			voiceChannel.leave();
 		});
 
-		dispatcher.on('error', async err => {
-			await voiceChannel.leave();
+		dispatcher.on('error', err => {
+			voiceChannel.leave();
 			console.error(err);
 		});
 
